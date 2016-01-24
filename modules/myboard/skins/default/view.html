@@ -1,0 +1,10 @@
+<include target="_head.html" />
+<h2>{$oDocument -> getTitle()}</h2>
+<ul>
+    <li>{$oDocument->getRegdate('Y.m.d H:i')}</li>
+    <li>{$oDocument->getNickName()}</li>
+    <li>{$oDocument-> get('readed_count')}</li>
+</ul>
+
+{$oDocument->getContent()}
+<a href="{getUrl('document_srl','')}">{$lang->cmd_list}</a>

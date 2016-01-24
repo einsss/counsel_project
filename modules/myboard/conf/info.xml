@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">나의게시판</title>
+	<description xml:lang="ko">내가 직접 만든 게시판</description>
+	<version>1.7.2</version>
+	<date>2014-03-20</date>
+	<category>service</category>
+
+	<author email_address="einsss@gmail.com" link="http://xp:8081/">
+		<name xml:lang="ko">NAVER1</name>
+	</author>
+	<author email_address="einsss@hanmail.net" link="http://xp:8081/">
+		<name xml:lang="ko">NAVER2</name>
+	</author>
+</module>

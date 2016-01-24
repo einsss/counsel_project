@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="myboard_title">
+		<value xml:lang="ko"><![CDATA[게시판 제목]]></value>
+	</item>
+	<item name="about_myboard_title">
+		<value xml:lang="ko"><![CDATA[게시판 상단에 표시할 제목입니다.]]></value>
+	</item>
+</lang>
