@@ -1,1 +1,1 @@
-<?php if(!defined("__XE__")) exit();$homeMenuSrl = 78;
+<?php if(!defined("__XE__")) exit();$homeMenuSrl = 64;

@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <module version="0.2">
-	<title xml:lang="ko">나의게시판</title>
+	<title xml:lang="ko">나의 게시판</title>
 	<description xml:lang="ko">내가 직접 만든 게시판</description>
-	<version>1.7.2</version>
-	<date>2014-03-20</date>
+	<version>1.0</version>
+	<link>http://yourdomain.com</link>
 	<category>service</category>
-
-	<author email_address="einsss@gmail.com" link="http://xp:8081/">
-		<name xml:lang="ko">NAVER1</name>
+	<date>2014-05-17</date>
+	<license link="http://licenseurl.com">FREE</license>
+	<author email_address="author1@yourdomain.com" link="http://author1.com">
+		<name xml:lang="ko">Author1</name>
 	</author>
-	<author email_address="einsss@hanmail.net" link="http://xp:8081/">
-		<name xml:lang="ko">NAVER2</name>
+	<author email_address="author2@yourdomain.com" link="http://author2.com">
+		<name xml:lang="ko">Author2</name>
 	</author>
 </module>

@@ -2,27 +2,29 @@
 <module>
 	<grants>
 		<grant name="list" default="guest">
-				<title xml:lang="ko">목록 보기</title>
+			<title xml:lang="ko">목록 보기</title>
 		</grant>
 		<grant name="view" default="guest">
-				<title xml:lang="ko">내용  보기</title>
+			<title xml:lang="ko">내용 보기</title>
 		</grant>
 		<grant name="write_document" default="guest">
-				<title xml:lang="ko">글 쓰기</title>
+			<title xml:lang="ko">글 쓰기</title>
 		</grant>
 		<grant name="write_comment" default="guest">
-				<title xml:lang="ko">댓글쓰기</title>
+			<title xml:lang="ko">댓글 쓰기</title>
 		</grant>
 	</grants>
 	<permissions>
-		<permission action="procMyboardAdminUpdateSimpleSetup" target="manager"/>
-		<permission action="getMyboardAdminSimpleSetup" target="manager"/>
+		<permission action="procMyboardAdminUpdateSimpleSetup" target="manager" />
+		<permission action="getMyboardAdminSimpleSetup" target="manager" />
 	</permissions>
 	<actions>
-		<action name="procMyboardAdminUpdateSimpleSetup" type="controller"/>
-		<action name="getMyboardAdminSimpleSetup" type="model" simple_setup_index="true"/>
-		<action name="dispMyboardWrite" type="view" standalone="false"/>
-		<action name="procMyboardWrite" type="controller" standalone="false"/>
-		<action name="dispMyboardContent" tyep="view" standalone="flase" index="true"/>
+		<action name="procMyboardAdminUpdateSimpleSetup" type="controller" />
+		<action name="getMyboardAdminSimpleSetup" type="model" simple_setup_index="true" />
+
+		<action name="dispMyboardWrite" type="view" standalone="false" />
+		<action name="dispMyboardContent" type="view" standalone="false" index="true" />
+
+		<action name="procMyboardWrite" type="controller" standalone="false" />
 	</actions>
 </module>

@@ -8,6 +8,7 @@
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<inptu type="hidden" name="act" value=procMyboardWrite/>
 	<div class="write_header">
 		<select name="category_srl" cond="$module_info->use_category=='Y'">
 			<option value="">{$lang->category}</option>

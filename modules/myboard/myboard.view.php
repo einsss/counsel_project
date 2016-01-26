@@ -32,7 +32,6 @@ class myboardView extends myboard
 
 	function dispMyboardWrite()
 	{
-		error_log("lllll",0);
 		if(!$this ->grant->write_document)
 		{
 			return new Object(-1,'msg_not_permitted');
@@ -80,7 +79,7 @@ class myboardView extends myboard
 		$document_srl = Context::get('document_srl');
 		$oDocument = $oDocumentModel->getDocument(0, $this->grant->manager);
 		$oDocument->setDocument($document_srl);
-		
+
 		if($oDocument->get('module_srl') == $oDocument->get('member_srl')) $savedDoc = TRUE;
 		$oDocument->add('module_srl', $this->module_srl);
 
@@ -201,30 +200,35 @@ class myboardView extends myboard
 	}
 	private function viewList()
 	{
-		$page=Context::get('page');
-		$oDocumentModel =getModel('document');
+		$page = Context::get('page');
+		$oDocumentModel = getModel('document');
 
-		if(!$this->grant->list)
+		// 권한 체크
+		if (!$this->grant->list)
 		{
-			return new Object(-1,'msg_not_permitted');
+			return new Object(-1, 'msg_not_permitted');
 		}
 
+		// 목록 얻을 파라미터 세팅
 		$args = new stdClass();
-		$args -> module_srl =$this ->module_info->module_srl;
-		$args ->page=$page;
-		$args ->list_count=10;
-		$args ->page_count=10;
-		$args ->sort_index='list_order';
-		$args ->order_type='asc';
+		$args->module_srl = $this->module_info->module_srl;
+		$args->page = $page;
+		$args->list_count = 10;
+		$args->page_count = 10;
+		$args->sort_index = 'list_order';
+		$args->order_type = 'asc';
 
-		$output =$oDocumentModel->getDocumentList($args);
+		// 목록 가져오기
+		$output = $oDocumentModel->getDocumentList($args);
 
-		Context::set('document_list',$output->data);
-		Context::set('total_count',$output->total_count);
-		Context::set('total_page',$output->total_page);
-		Context::set('page',$output->page);
-		Context::set('page_navigation',$output->page_navigation);
+		// 템플릿 변수 세팅
+		Context::set('document_list', $output->data);
+		Context::set('total_count', $output->total_count);
+		Context::set('total_page', $output->total_page);
+		Context::set('page', $output->page);
+		Context::set('page_navigation', $output->page_navigation);
 
+		// 글 보기, 목록 보기 모두 act가 동일하기 때문에 템플릿 파일을 직접 지정
 		$this->setTemplateFile('List');
 
 	}

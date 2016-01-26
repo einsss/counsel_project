@@ -22,6 +22,7 @@ class myboardController extends myboard
 	 **/
 	function procMyboardWrite()
 	{
+		error_log ("writestart",0);
 		// check grant
 		if($this->module_info->module != "myboard")
 		{

@@ -1,11 +1,11 @@
 <form class="x_form-vertical" action="./" method="post">
-		<input type="hidden" name="module_srl" value="{$module_info_->module_srl}" />
-		<input type="hidden" name="act" value="procMyboardAdminUpdateSimpleSetup" />
-		<div class="x_control-group">
-			<label class="x_contrl-label" for="title">{$lang->myboard_title}</label>
-				<div class="x_controls">
-					<input type="text" name="title" id="title" class="lang_code" value="{$config->title}" />
-					<p class="x_help-block">{$lang -> about_myboard_title}</p>
-				</div>
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="act" value="procMyboardAdminUpdateSimpleSetup" />
+	<div class="x_control-group">
+		<label class="x_control-label" for="title">{$lang->myboard_title}</label>
+		<div class="x_controls">
+			<input type="text" name="title" id="title" class="lang_code" value="{$config->title}" />
+			<p class="x_help-block">{$lang->about_myboard_title}</p>
 		</div>
+	</div>
 </form>
