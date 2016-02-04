@@ -1,6 +1,6 @@
 <?php if(!defined("__XE__"))exit;?>
 <?php $__tpl=TemplateHandler::getInstance();echo $__tpl->compile('modules/myboard/skins/default','_header.html') ?>
-<form action="./" method="post" class="board_write"><input type="hidden" name="error_return_url" value="<?php echo htmlspecialchars(getRequestUriByServerEnviroment(), ENT_COMPAT | ENT_HTML401, 'UTF-8', false) ?>" /><input type="hidden" name="act" value="<?php echo $__Context->act ?>" /><input type="hidden" name="vid" value="<?php echo $__Context->vid ?>" />
+<form action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="board_write"><input type="hidden" name="error_return_url" value="<?php echo htmlspecialchars(getRequestUriByServerEnviroment(), ENT_COMPAT | ENT_HTML401, 'UTF-8', false) ?>" /><input type="hidden" name="act" value="<?php echo $__Context->act ?>" /><input type="hidden" name="vid" value="<?php echo $__Context->vid ?>" />
 	<input type="hidden" name="mid" value="<?php echo $__Context->mid ?>" />
 	<input type="hidden" name="content" value="<?php echo $__Context->oDocument->getContentText() ?>" />
 	<input type="hidden" name="document_srl" value="<?php echo $__Context->document_srl ?>" />

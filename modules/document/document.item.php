@@ -193,7 +193,7 @@ class documentItem extends Object
 		static $allow_trackback_status = null;
 		if(is_null($allow_trackback_status))
 		{
-			
+
 			// Check the tarckback module exist
 			if(!getClass('trackback'))
 			{
@@ -204,12 +204,12 @@ class documentItem extends Object
 				// If the trackback module is configured to be disabled, do not allow. Otherwise, check the setting of each module.
 				$oModuleModel = getModel('module');
 				$trackback_config = $oModuleModel->getModuleConfig('trackback');
-				
+
 				if(!$trackback_config)
 				{
 					$trackback_config = new stdClass();
 				}
-				
+
 				if(!isset($trackback_config->enable_trackback)) $trackback_config->enable_trackback = 'Y';
 				if($trackback_config->enable_trackback != 'Y') $allow_trackback_status = false;
 				else
@@ -386,17 +386,90 @@ class documentItem extends Object
 
 	function getContentText($strlen = 0)
 	{
-		if(!$this->document_srl) return;
+		if(!$this->document_srl) return "<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:18.0pt;font-family:'08서울남산체 EB,한컴돋움';font-weight:'bold';line-height:160%'>상&nbsp; 담&nbsp; 일&nbsp; 지</SPAN></P>
+
+		<P CLASS=HStyle0 STYLE='text-align:center;'></P>
+		<TABLE border='1' cellspacing='0' cellpadding='0' style='border-collapse:collapse;border:1;width: 60%;position: relative;margin: auto;'>
+		<TR>
+			<TD valign='middle' style='width:80;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>내담자</SPAN></P>
+			</TD>
+			<TD valign='middle' style='width:209;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>&nbsp;</SPAN></P>
+			</TD>
+			<TD valign='middle' style='width:82;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>상담자</SPAN></P>
+			</TD>
+			<TD valign='middle' style='width:261;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>&nbsp;</SPAN></P>
+			</TD>
+		</TR>
+		<TR>
+			<TD valign='middle' style='width:80;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>회기</SPAN></P>
+			</TD>
+			<TD valign='middle' style='width:209;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>12</SPAN></P>
+			</TD>
+			<TD colspan='2' valign='middle' style='width:343;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>2015년&nbsp;&nbsp; 12월&nbsp; 17일 (월요일) </SPAN></P>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>pm 15:00 ~ 15:40</SPAN></P>
+			</TD>
+		</TR>
+		<TR>
+			<TD valign='middle' style='width:80;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>상담목표</SPAN></P>
+			</TD>
+			<TD colspan='3' valign='middle' style='width:552;height:44;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			</TD>
+		</TR>
+		<TR>
+			<TD valign='middle' style='width:80;height:495;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>주요활동</SPAN></P>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>및</SPAN></P>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>상담내용</SPAN></P>
+			</TD>
+			<TD colspan='3' valign='middle' style='width:552;height:495;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0>● <SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>입실 시 태도</SPAN></P>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			<P CLASS=HStyle0>● <SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>치료 시 태도</SPAN></P>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			<P CLASS=HStyle0>● <SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>퇴실 시 태도</SPAN></P>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			</TD>
+		</TR>
+		<TR>
+			<TD valign='middle' style='width:80;height:99;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>상담자 소견</SPAN></P>
+			</TD>
+			<TD colspan='3' valign='middle' style='width:552;height:99;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			</TD>
+		</TR>
+		<TR>
+			<TD valign='middle' style='width:80;height:106;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>부모상담</SPAN></P>
+			<P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움';font-weight:'bold''>내용</SPAN></P>
+			</TD>
+			<TD colspan='3' valign='middle' style='width:552;height:106;border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+			<P CLASS=HStyle0><SPAN STYLE='font-family:'08서울남산체 L,한컴돋움''>&nbsp;</SPAN></P>
+			</TD>
+		</TR>
+		</TABLE>
+		<P CLASS=HStyle0 STYLE='text-align:center;'></P>";
 
 		if($this->isSecret() && !$this->isGranted() && !$this->isAccessible()) return Context::getLang('msg_is_secret');
-
+		debugPrint("2");
 		$result = $this->_checkAccessibleFromStatus();
 		if($result) $_SESSION['accessible'][$this->document_srl] = true;
-
+		debugPrint("3");
 		$content = $this->get('content');
 		$content = preg_replace_callback('/<(object|param|embed)[^>]*/is', array($this, '_checkAllowScriptAccess'), $content);
 		$content = preg_replace_callback('/<object[^>]*>/is', array($this, '_addAllowScriptAccess'), $content);
-
+		debugPrint($content);
 		if($strlen) return cut_str(strip_tags($content),$strlen,'...');
 
 		return htmlspecialchars($content);
@@ -524,7 +597,7 @@ class documentItem extends Object
 	function getSummary($str_size = 50, $tail = '...')
 	{
 		$content = $this->getContent(FALSE, FALSE);
-		
+
 		$content = nl2br($content);
 
 		// For a newlink, inert a whitespace
@@ -686,7 +759,7 @@ class documentItem extends Object
 				$extra_eid[$key->eid] = $key;
 			}
 		}
-		
+
 		if(is_array($extra_eid) && array_key_exists($eid,$extra_eid))
 		{
 			return $extra_eid[$eid]->getValue();
@@ -705,7 +778,7 @@ class documentItem extends Object
 		{
 			$extra_eid[$key->eid] = $key;
 		}
-		
+
 		if(is_array($extra_eid) && array_key_exists($eid,$extra_eid))
 		{
 			return $extra_eid[$eid]->getValueHTML();

@@ -364,7 +364,7 @@ class boardView extends board
 		// Get configurations (using module model object)
 		$oModuleModel = getModel('module');
 		$file_module_config = $oModuleModel->getModulePartConfig('file',$this->module_srl);
-		
+
 		$downloadGrantCount = 0;
 		if(is_array($file_module_config->download_grant))
 		{
@@ -636,6 +636,7 @@ class boardView extends board
 	 **/
 	function dispBoardWrite()
 	{
+		debugPrint("write_method");
 		// check grant
 		if(!$this->grant->write_document)
 		{

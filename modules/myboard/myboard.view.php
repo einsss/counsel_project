@@ -17,7 +17,7 @@ class myboardView extends myboard
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel -> getModulePartConfig('myboard', $this -> module_info ->module_srl);
-		context::set('config',$config);
+		Context::set('config',$config);
 
 		$templatePath = sprintf('%sskins/%s/',$this ->module_path,$this->module_info->skin);
 		$this->setTemplatePath($tempaltePath);
@@ -37,7 +37,8 @@ class myboardView extends myboard
 			return new Object(-1,'msg_not_permitted');
 		}
 		$oDocumentModel = getModel('document');
-
+    debugPrint("1");
+		debugPrint($this->module_info->use_category);
 		/**
 		 * check if the category option is enabled not not
 		 **/
@@ -76,13 +77,13 @@ class myboardView extends myboard
 		}
 
 		// GET parameter document_srl from request
+
 		$document_srl = Context::get('document_srl');
 		$oDocument = $oDocumentModel->getDocument(0, $this->grant->manager);
 		$oDocument->setDocument($document_srl);
-
-		if($oDocument->get('module_srl') == $oDocument->get('member_srl')) $savedDoc = TRUE;
+    if($oDocument->get('module_srl') == $oDocument->get('member_srl')) $savedDoc = TRUE;
 		$oDocument->add('module_srl', $this->module_srl);
-
+		debugPrint($document_srl);
 		if($oDocument->isExists() && $this->module_info->protect_content=="Y" && $oDocument->get('comment_count')>0 && $this->grant->manager==false)
 		{
 			return new Object(-1, 'msg_protect_content');
@@ -96,7 +97,7 @@ class myboardView extends myboard
 		}
 
 		if(!$oDocument->isExists())
-		{
+		{ debugPrint("oDocumentisnot exist");
 			$point_config = $oModuleModel->getModulePartConfig('point',$this->module_srl);
 			$logged_info = Context::get('logged_info');
 			$oPointModel = getModel('point');
@@ -114,10 +115,10 @@ class myboardView extends myboard
 			}
 		}
 		if(!$oDocument->get('status')) $oDocument->add('status', $oDocumentModel->getDefaultStatus());
+		//error_log($oDocument->get('contents'),0);
 
 		$statusList = $this->_getStatusNameList($oDocumentModel);
 		if(count($statusList) > 0) Context::set('status_list', $statusList);
-
 		// get Document status config value
 		Context::set('document_srl',$document_srl);
 		Context::set('oDocument', $oDocument);
@@ -137,7 +138,7 @@ class myboardView extends myboard
 
 		$oSecurity = new Security();
 		$oSecurity->encodeHTML('category_list.text', 'category_list.title');
-		//error_log($oDocument+";",0);
+		debugPrint("100");
 		$this->setTemplateFile('write');
 	}
 

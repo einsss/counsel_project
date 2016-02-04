@@ -55,7 +55,7 @@ class myboardController extends myboard
 	/**
 	 * @brief delete the document
 	 **/
-	function procBoardDeleteDocument()
+	function procMyBoardDeleteDocument()
 	{
 		// get the document_srl
 		$document_srl = Context::get('document_srl');
@@ -94,7 +94,7 @@ class myboardController extends myboard
 	/**
 	 * @brief vote
 	 **/
-	function procBoardVoteDocument()
+	function procMyBoardVoteDocument()
 	{
 		// generate document module controller object
 		$oDocumentController = getController('document');
@@ -106,7 +106,7 @@ class myboardController extends myboard
 	/**
 	 * @brief insert comments
 	 **/
-	function procBoardInsertComment()
+	function procMyBoardInsertComment()
 	{
 		// check grant
 		if(!$this->grant->write_comment)
@@ -219,7 +219,7 @@ class myboardController extends myboard
 	/**
 	 * @brief delete the comment
 	 **/
-	function procBoardDeleteComment()
+	function procMyBoardDeleteComment()
 	{
 		// get the comment_srl
 		$comment_srl = Context::get('comment_srl');
@@ -246,7 +246,7 @@ class myboardController extends myboard
 	/**
 	 * @brief delete the tracjback
 	 **/
-	function procBoardDeleteTrackback()
+	function procMyBoardDeleteTrackback()
 	{
 		$trackback_srl = Context::get('trackback_srl');
 
@@ -270,7 +270,7 @@ class myboardController extends myboard
 	/**
 	 * @brief check the password for document and comment
 	 **/
-	function procBoardVerificationPassword()
+	function procMyBoardVerificationPassword()
 	{
 		// get the id number of the document and the comment
 		$password = Context::get('password');

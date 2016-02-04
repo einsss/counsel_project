@@ -114,7 +114,7 @@ if(!defined('__DEBUG__'))
 	 * 4: output DB query history
 	 * </pre>
 	 */
-	define('__DEBUG__', 0);
+	define('__DEBUG__', 1);
 }
 
 if(!defined('__DEBUG_OUTPUT__'))
@@ -128,7 +128,7 @@ if(!defined('__DEBUG_OUTPUT__'))
 	 * 2: Firebug console output (PHP 4 & 5. Firebug/FirePHP plug-in required)
 	 * </pre>
 	 */
-	define('__DEBUG_OUTPUT__', 0);
+	define('__DEBUG_OUTPUT__', 2);
 }
 
 if(!defined('__DEBUG_PROTECT__'))
@@ -141,7 +141,7 @@ if(!defined('__DEBUG_PROTECT__'))
 	 * 1: Allow only specified IP addresses
 	 * </pre>
 	 */
-	define('__DEBUG_PROTECT__', 1);
+	define('__DEBUG_PROTECT__', 0);
 }
 
 if(!defined('__DEBUG_PROTECT_IP__'))
