@@ -22,7 +22,37 @@ class myboardController extends myboard
 	 **/
 	function procMyboardWrite()
 	{
-		error_log ("writestart",0);
+		// 권한 체크
+		if (!$this->grant->write_document)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
+
+		// 데이터 준비
+		$args = new stdClass();
+		$args->module_srl = $this->module_srl;
+		$args->nick_name = Context::get('nick_name');
+		$args->title = Context::get('title');
+		$args->content = Context::get('content');
+
+		// document 모듈에 등록
+		$oDocumentController = getController('document');
+		$output = $oDocumentController->insertDocument($args);
+
+		// 결과 체크
+		if (!$output->toBool())
+		{
+			return $output;
+		}
+
+		// 성공 시 글 보기 화면으로 이동
+		$returnUrl = getNotEncodedUrl('', 'mid', $this->mid, 'document_srl', $output->get('document_srl'));
+		$this->setRedirectUrl($returnUrl);
+
+	}
+	function procMyboardInsertDocument()
+	{
+		error_log("write?",0);
 		// check grant
 		if($this->module_info->module != "myboard")
 		{
@@ -35,27 +65,144 @@ class myboardController extends myboard
 		$logged_info = Context::get('logged_info');
 
 		// setup variables
-		$args=new stdClass();
-		$args-> module_srl = $this->module_srl;
-		$args-> nick_name = Context::get('nick_name');
-		$args-> title = Context::get('title');
-		$args-> content = Context::get('content');
+		$obj = Context::getRequestVars();
+		$obj->module_srl = $this->module_srl;
+		if($obj->is_notice!='Y'||!$this->grant->manager) $obj->is_notice = 'N';
+		$obj->commentStatus = $obj->comment_status;
 
-		$oDocumentController =getController('document');
-		$output = $oDocumentController->insertDocument($args);
-		if(!$output -> toBool())
+		settype($obj->title, "string");
+		if($obj->title == '') $obj->title = cut_str(trim(strip_tags(nl2br($obj->content))),20,'...');
+		//setup dpcument title tp 'Untitled'
+		if($obj->title == '') $obj->title = 'Untitled';
+
+		// unset document style if the user is not the document manager
+		if(!$this->grant->manager)
+		{
+			unset($obj->title_color);
+			unset($obj->title_bold);
+		}
+
+		// generate document module model object
+		$oDocumentModel = getModel('document');
+
+		// generate document module의 controller object
+		$oDocumentController = getController('document');
+
+		// check if the document is existed
+		$oDocument = $oDocumentModel->getDocument($obj->document_srl, $this->grant->manager);
+
+		// update the document if it is existed
+		$is_update = false;
+		if($oDocument->isExists() && $oDocument->document_srl == $obj->document_srl)
+		{
+			$is_update = true;
+		}
+
+		// if use anonymous is true
+		if($this->module_info->use_anonymous == 'Y')
+		{
+			$this->module_info->admin_mail = '';
+			$obj->notify_message = 'N';
+			if($is_update===false)
+			{
+				$obj->member_srl = -1*$logged_info->member_srl;
+			}
+			$obj->email_address = $obj->homepage = $obj->user_id = '';
+			$obj->user_name = $obj->nick_name = 'anonymous';
+			$bAnonymous = true;
+			if($is_update===false)
+			{
+				$oDocument->add('member_srl', $obj->member_srl);
+			}
+		}
+		else
+		{
+			$bAnonymous = false;
+		}
+
+		if($obj->is_secret == 'Y' || strtoupper($obj->status == 'SECRET'))
+		{
+			$use_status = explode('|@|', $this->module_info->use_status);
+			if(!is_array($use_status) || !in_array('SECRET', $use_status))
+			{
+				unset($obj->is_secret);
+				$obj->status = 'PUBLIC';
+			}
+		}
+
+		// update the document if it is existed
+		if($is_update)
+		{
+			if(!$oDocument->isGranted())
+			{
+				return new Object(-1,'msg_not_permitted');
+			}
+
+			if($this->module_info->protect_content=="Y" && $oDocument->get('comment_count')>0 && $this->grant->manager==false)
+			{
+				return new Object(-1,'msg_protect_content');
+			}
+
+			if(!$this->grant->manager)
+			{
+				// notice & document style same as before if not manager
+				$obj->is_notice = $oDocument->get('is_notice');
+				$obj->title_color = $oDocument->get('title_color');
+				$obj->title_bold = $oDocument->get('title_bold');
+			}
+
+			// modify list_order if document status is temp
+			if($oDocument->get('status') == 'TEMP')
+			{
+				$obj->last_update = $obj->regdate = date('YmdHis');
+				$obj->update_order = $obj->list_order = (getNextSequence() * -1);
+			}
+
+			$output = $oDocumentController->updateDocument($oDocument, $obj);
+			$msg_code = 'success_updated';
+
+		// insert a new document otherwise
+		} else {
+			$output = $oDocumentController->insertDocument($obj, $bAnonymous);
+			$msg_code = 'success_registed';
+			$obj->document_srl = $output->get('document_srl');
+
+			// send an email to admin user
+			if($output->toBool() && $this->module_info->admin_mail)
+			{
+				$oMail = new Mail();
+				$oMail->setTitle($obj->title);
+				$oMail->setContent( sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", getFullUrl('','document_srl',$obj->document_srl), getFullUrl('','document_srl',$obj->document_srl), $obj->content));
+				$oMail->setSender($obj->user_name, $obj->email_address);
+
+				$target_mail = explode(',',$this->module_info->admin_mail);
+				for($i=0;$i<count($target_mail);$i++)
+				{
+					$email_address = trim($target_mail[$i]);
+					if(!$email_address) continue;
+					$oMail->setReceiptor($email_address, $email_address);
+					$oMail->send();
+				}
+			}
+		}
+
+		// if there is an error
+		if(!$output->toBool())
 		{
 			return $output;
 		}
-		$returnUrl =getNotEncodedUrl('','mid',$this=>mid,'document_srl',$output->get('document_srl'));
-		$this->setRedirectUrl($returnUrl);
 
+		// return the results
+		$this->add('mid', Context::get('mid'));
+		$this->add('document_srl', $output->get('document_srl'));
+
+		// alert a message
+		$this->setMessage($msg_code);
 	}
-
 	/**
 	 * @brief delete the document
 	 **/
-	function procMyBoardDeleteDocument()
+	function procMyboardDeleteDocument()
 	{
 		// get the document_srl
 		$document_srl = Context::get('document_srl');
@@ -94,7 +241,7 @@ class myboardController extends myboard
 	/**
 	 * @brief vote
 	 **/
-	function procMyBoardVoteDocument()
+	function procMyboardVoteDocument()
 	{
 		// generate document module controller object
 		$oDocumentController = getController('document');
@@ -219,7 +366,7 @@ class myboardController extends myboard
 	/**
 	 * @brief delete the comment
 	 **/
-	function procMyBoardDeleteComment()
+	function procMyboardDeleteComment()
 	{
 		// get the comment_srl
 		$comment_srl = Context::get('comment_srl');
@@ -246,7 +393,7 @@ class myboardController extends myboard
 	/**
 	 * @brief delete the tracjback
 	 **/
-	function procMyBoardDeleteTrackback()
+	function procMyboardDeleteTrackback()
 	{
 		$trackback_srl = Context::get('trackback_srl');
 
@@ -270,7 +417,7 @@ class myboardController extends myboard
 	/**
 	 * @brief check the password for document and comment
 	 **/
-	function procMyBoardVerificationPassword()
+	function procMyboardVerificationPassword()
 	{
 		// get the id number of the document and the comment
 		$password = Context::get('password');

@@ -1,4 +1,4 @@
-<filter name="insert" module="board" act="procMyboardInsertDocument">
+<filter name="insert" module="myboard" act="procMyboardInsertDocument">
   <form>
     <node target="nick_name" required="true" maxlength="20"/>
     <node target="password" required="true" />

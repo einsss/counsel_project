@@ -26,5 +26,6 @@
 		<action name="dispMyboardContent" type="view" standalone="false" index="true" />
 
 		<action name="procMyboardWrite" type="controller" standalone="false" />
+		<action name="procMyboardInsertDocument" type="controller" standalone="false" />
 	</actions>
 </module>

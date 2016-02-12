@@ -1,0 +1,13 @@
+<include target="_head.html" />
+
+<form action="./" method="post">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="act" value="procMyboardWrite" />
+
+	<block cond="!$logged_info">
+		{$lang->nick_name}: <input type="text" name="nick_name"><br>
+	</block>
+	{$lang->title}: <input type="text" name="title" /><br>
+	<textarea name="content" cols="100" rows="20"></textarea><br>
+	<button type="submit">{$lang->cmd_registration}</button>
+</form>

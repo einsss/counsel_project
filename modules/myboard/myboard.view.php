@@ -32,7 +32,7 @@ class myboardView extends myboard
 
 	function dispMyboardWrite()
 	{
-		if(!$this ->grant->write_document)
+		/*if(!$this ->grant->write_document)
 		{
 			return new Object(-1,'msg_not_permitted');
 		}
@@ -41,7 +41,7 @@ class myboardView extends myboard
 		debugPrint($this->module_info->use_category);
 		/**
 		 * check if the category option is enabled not not
-		 **/
+
 		if($this->module_info->use_category=='Y')
 		{
 			// get the user group information
@@ -132,14 +132,28 @@ class myboardView extends myboard
 
 		/**
 		 * add JS filters
-		 **/
+		 *
 		if(Context::get('logged_info')->is_admin=='Y') Context::addJsFilter($this->module_path.'tpl/filter', 'insert_admin.xml');
 		else Context::addJsFilter($this->module_path.'tpl/filter', 'insert.xml');
 
 		$oSecurity = new Security();
 		$oSecurity->encodeHTML('category_list.text', 'category_list.title');
 		debugPrint("100");
-		$this->setTemplateFile('write');
+		$this->setTemplateFile('write2');
+		*/
+		// 권한 체크
+		if (!$this->grant->write_document)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
+
+		// 빈 document item 객체 받기
+		$oDocumentModel = getModel('document');
+		$oDocument = $oDocumentModel->getDocument(0);
+		$oDocument->add('module_srl', $this->module_srl);
+
+		Context::set('oDocument', $oDocument);
+		//$this->setTemplateFile('write1');
 	}
 
 	function _getStatusNameList(&$oDocumentModel)
@@ -164,40 +178,56 @@ class myboardView extends myboard
 	public function dispMyboardContent()
 	{
 		$documentSrl = Context::get('document_srl');
-		if($documentSrl)
+
+		// document_srl이 있으면 글 보기
+		if ($documentSrl)
 		{
 			return $this->viewDocument();
 		}
-		else {
-			return $this -> viewList();
+
+		// 없으면 목록 보기
+		else
+		{
+			return $this->viewList();
 		}
 	}
 	private function viewDocument()
 	{
-		$documentSrl =Context::get('document_srl');
-		$oDocumentModel =getModel('document');
+		$documentSrl = Context::get('document_srl');
+		$oDocumentModel = getModel('document');
 
-		if(!$this->grant->view)
+		// 권한 체크
+		if (!$this->grant->view)
 		{
-			return new Object(-1,'msg_not_permitted');
+			return new Object(-1, 'msg_not_permitted');
 		}
 
+		// document 얻기
 		$oDocument = $oDocumentModel->getDocument($documentSrl);
 
-		if(!$oDocument-> isExists())
+		// 존재하는지 확인
+		if (!$oDocument->isExists())
 		{
-			return new Object(-1,'msg_not_founded');
+			return new Object(-1, 'msg_not_founded');
 		}
 
-		if($this->grant->manager)
+		// 모듈 관리자이면 권한 세팅
+		if ($this->grant->manager)
 		{
 			$oDocument->setGrant();
 		}
 
-		$oDocument -> updateReadedCount();
+		// 조회수 증가
+		$oDocument->updateReadedCount();
+
+		// 브라우저 제목에 글 제목 추가
 		Context::addBrowserTitle($oDocument->getTitleText());
-		Context:: set('oDocument',$oDocument);
-		$this->setTemplateFile('view');
+
+		// 템플릿 변수 세팅
+		Context::set('oDocument', $oDocument);
+
+		// 글 보기, 목록 보기 모두 act가 동일하기 때문에 템플릿 파일을 직접 지정
+		$this->setTemplateFile('View');
 	}
 	private function viewList()
 	{
