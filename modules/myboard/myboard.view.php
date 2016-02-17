@@ -153,7 +153,7 @@ class myboardView extends myboard
 		$oDocument->add('module_srl', $this->module_srl);
 
 		Context::set('oDocument', $oDocument);
-		//$this->setTemplateFile('write1');
+		$this->setTemplateFile('Write');
 	}
 
 	function _getStatusNameList(&$oDocumentModel)

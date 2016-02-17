@@ -540,9 +540,9 @@ class documentItem extends Object
 		if($add_popup_menu)
 		{
 			$content = sprintf(
-				'%s<div class="document_popup_menu"><a href="#popup_menu_area" class="document_%d" onclick="return false">%s</a></div>',
+				'%s<div class="document_popup_menu"><a href="#popup_menu_area" class="document_%d" onclick="return false">%s</a></div><div><a href="#downloadarea" onclick="aaaaaa">%s</a></div>',
 				$content,
-				$this->document_srl, Context::getLang('cmd_document_do')
+				$this->document_srl, Context::getLang('cmd_document_do'),Context::getLang('cmd_document_hwp_download')
 			);
 		}
 		// If additional content information is set

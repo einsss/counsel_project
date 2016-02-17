@@ -93,3 +93,4 @@ $lang->select_module_id='모듈 아이디를 선택하세요.';
 $lang->select_category='분류를 선택하세요.';
 $lang->category_description='카테고리 설명';
 $lang->no_title_document='제목이 없는 문서입니다.';
+$lang->cmd_document_hwp_download='한글파일 다운로드';

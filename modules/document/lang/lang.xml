@@ -874,4 +874,8 @@
 		<value xml:lang="jp"><![CDATA[タイトルがないドキュメントです。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[此文章無標題。]]></value>
 	</item>
+	<item name="cmd_document_hwp_download">
+		<value xml:lang="ko"><![CDATA[한글파일 다운로드]]></value>
+		<value xml:lang="en"><![CDATA[download hwp]]></value>
+	</item>
 </lang>
