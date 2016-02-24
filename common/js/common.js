@@ -85,7 +85,6 @@ if(jQuery) jQuery.noConflict();
 			var menu_id = params.menu_id;
 			var menus = ret_obj.menus;
 			var html = "";
-
 			if(this.loaded_popup_menus[menu_id]) {
 				html = this.loaded_popup_menus[menu_id];
 
@@ -99,7 +98,6 @@ if(jQuery) jQuery.noConflict();
 							var str = item[i].str;
 							var icon = item[i].icon;
 							var target = item[i].target;
-
 							var styleText = "";
 							var click_str = "";
 							/* if(icon) styleText = " style=\"background-image:url('"+icon+"')\" "; */
@@ -925,6 +923,7 @@ function get_by_id(id) {
 }
 
 jQuery(function($){
+
 	// display popup menu that contains member actions and document actions
 	$(document).on('click', function(evt) {
 		var $area = $('#popup_menu_area');
@@ -932,16 +931,14 @@ jQuery(function($){
 
 		// 이전에 호출되었을지 모르는 팝업메뉴 숨김
 		$area.hide();
-
 		var $target = $(evt.target).filter('a,div,span');
 		if(!$target.length) $target = $(evt.target).closest('a,div,span');
 		if(!$target.length) return;
-
 		// 객체의 className값을 구함
 		var cls = $target.attr('class'), match;
 		if(cls) match = cls.match(new RegExp('(?:^| )((document|comment|member)_([1-9]\\d*))(?: |$)',''));
 		if(!match) return;
-
+		alert("4");
 		// mobile에서 touchstart에 의한 동작 시 pageX, pageY 위치를 구함
 		if(evt.pageX===undefined || evt.pageY===undefined)
 		{
@@ -955,6 +952,7 @@ jQuery(function($){
 		}
 
 		var action = 'get'+ucfirst(match[2])+'Menu';
+		alert(action);
 		var params = {
 			mid        : current_mid,
 			cur_mid    : current_mid,

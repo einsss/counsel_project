@@ -476,6 +476,7 @@ class documentModel extends document
 	 */
 	function getDocumentMenu()
 	{
+		debugPrint("getDocumentMenu--");
 		// Post number and the current login information requested Wanted
 		$document_srl = Context::get('target_srl');
 		$mid = Context::get('cur_mid');
@@ -1292,7 +1293,7 @@ class documentModel extends document
 		$logged_info = Context::get('logged_info');
 
 		$args->sort_index = $searchOpt->sort_index;
-		
+
 		// Check the target and sequence alignment
 		$orderType = array('desc' => 1, 'asc' => 1);
 		if(!isset($orderType[$args->order_type])) $args->order_type = 'asc';
@@ -1542,11 +1543,11 @@ class documentModel extends document
 		$args->list_count = $count;
 		$output = executeQuery('document.getDocumentListByMemberSrl', $args, $columnList);
 		$document_list = $output->data;
-		
+
 		if(!$document_list) return array();
 		if(!is_array($document_list)) $document_list = array($document_list);
 
-		return $document_list;	
+		return $document_list;
 	}
 }
 /* End of file document.model.php */

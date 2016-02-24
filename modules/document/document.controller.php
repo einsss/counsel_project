@@ -206,7 +206,7 @@ class documentController extends document
 		if(!$obj->commentStatus) $obj->commentStatus = 'DENY';
 		if($obj->commentStatus == 'DENY') $this->_checkCommentStatusForOldVersion($obj);
 		if($obj->allow_trackback!='Y') $obj->allow_trackback = 'N';
-		if($obj->homepage) 
+		if($obj->homepage)
 		{
 			$obj->homepage = removeHackTag($obj->homepage);
 			if(!preg_match('/^[a-z]+:\/\//i',$obj->homepage))
@@ -214,7 +214,7 @@ class documentController extends document
 				$obj->homepage = 'http://'.$obj->homepage;
 			}
 		}
-		
+
 		if($obj->notify_message != 'Y') $obj->notify_message = 'N';
 		if(!$obj->email_address) $obj->email_address = '';
 		if(!$isRestore) $obj->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -225,7 +225,7 @@ class documentController extends document
 		{
 			unset($obj->regdate);
 		}
-		
+
 		// Serialize the $extra_vars, check the extra_vars type, because duplicate serialized avoid
 		if(!is_string($obj->extra_vars)) $obj->extra_vars = serialize($obj->extra_vars);
 		// Remove the columns for automatic saving
@@ -418,16 +418,16 @@ class documentController extends document
 				$obj->homepage = 'http://'.$obj->homepage;
 			}
 		}
-		
+
 		if($obj->notify_message != 'Y') $obj->notify_message = 'N';
-		
+
 		// can modify regdate only manager
                 $grant = Context::get('grant');
 		if(!$grant->manager)
 		{
 			unset($obj->regdate);
 		}
-		
+
 		// Serialize the $extra_vars
 		if(!is_string($obj->extra_vars)) $obj->extra_vars = serialize($obj->extra_vars);
 		// Remove the columns for automatic saving
@@ -835,7 +835,7 @@ class documentController extends document
 	{
 		// Pass if Crawler access
 		if(isCrawler()) return false;
-		
+
 		$document_srl = $oDocument->document_srl;
 		$member_srl = $oDocument->get('member_srl');
 		$logged_info = Context::get('logged_info');
@@ -887,7 +887,7 @@ class documentController extends document
 		}
 
 		// Register session
-		if(!$_SESSION['banned_document'][$document_srl]) 
+		if(!$_SESSION['banned_document'][$document_srl])
 		{
 			$_SESSION['readed_document'][$document_srl] = true;
 		}
@@ -1177,7 +1177,7 @@ class documentController extends document
 			$output->setMessage('success_blamed');
 			$output->add('blamed_count', $obj->after_point);
 		}
-		
+
 		return $output;
 	}
 
